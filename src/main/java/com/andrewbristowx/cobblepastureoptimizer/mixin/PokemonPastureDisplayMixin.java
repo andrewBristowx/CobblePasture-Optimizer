@@ -1,6 +1,7 @@
 package com.andrewbristowx.cobblepastureoptimizer.mixin;
 
 import com.andrewbristowx.cobblepastureoptimizer.config.OptimizerConfig;
+import com.andrewbristowx.cobblepastureoptimizer.service.PastureDisplayAppearanceService;
 import com.andrewbristowx.cobblepastureoptimizer.service.PastureDisplayService;
 import com.cobblemon.mod.common.block.entity.PokemonPastureBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -44,5 +45,8 @@ public abstract class PokemonPastureDisplayMixin {
                 blockEntity,
                 List.copyOf(blockEntity.getTetheredPokemon())
         );
+
+        // Alpha.3 owns the display contents; alpha.4 immediately enforces the cleaner appearance.
+        PastureDisplayAppearanceService.apply(serverLevel, pos);
     }
 }
