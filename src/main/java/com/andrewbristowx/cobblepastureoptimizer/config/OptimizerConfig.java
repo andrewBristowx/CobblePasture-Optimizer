@@ -27,6 +27,11 @@ public final class OptimizerConfig {
     public int lineWidth = 220;
     public int backgroundArgb = 0x60000000;
 
+    // Display appearance. Alpha.4 defaults to a fixed, clean sign-like look.
+    public boolean facePlayer = false;
+    public boolean textShadow = false;
+    public boolean showBackground = false;
+
     public boolean showPokemonCount = true;
     public boolean showLevels = false;
     public boolean showHopperStatus = true;
