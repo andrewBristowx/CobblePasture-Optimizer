@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "cobblepastureoptimizer",
+  "version": "${version}",
+  "name": "CobblePasture Optimizer",
+  "description": "Server-side optimization addon that virtualizes Cobblemon pasture Pokemon while preserving Cobblemon Pasture Loot drops.",
+  "authors": [
+    "andrewBristowx"
+  ],
+  "license": "ARR",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "com.andrewbristowx.cobblepastureoptimizer.CobblePastureOptimizer"
+    ]
+  },
+  "mixins": [
+    "cobblepastureoptimizer.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.17.2",
+    "minecraft": "1.21.1",
+    "java": ">=21",
+    "fabric-api": "*",
+    "fabric-language-kotlin": "*",
+    "cobblemon": "1.7.3+1.21.1",
+    "pasture-loot": "1.0.5+1.21.1"
+  }
+}
