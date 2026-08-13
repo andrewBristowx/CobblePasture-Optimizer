@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.0-alpha.3
+
+- Adds one lightweight vanilla `TextDisplay` hologram per non-empty Pasture instead of bringing physical Pokemon entities back.
+- Groups stored Pokemon by species and shows their counts above the Pasture.
+- Optional level ranges can be enabled in `config/cobblepastureoptimizer.json`.
+- Shows whether a hopper is directly connected below the Pasture.
+- When Cobbreeding 2.2.2 is installed, shows egg count and breeding state/progress without making Cobbreeding a hard dependency.
+- Hologram range, height, update interval, line count and visible fields are configurable.
+- Hologram text is only rewritten when its contents change and refreshes are staggered by Pasture position.
+- Adds slow cleanup for orphaned holograms after their Pasture is broken.
+
 ## 0.1.0-alpha.2
 
 - Sends virtual Pasture Loot drops directly into a hopper placed immediately below the Pasture.

@@ -1,6 +1,9 @@
 package com.andrewbristowx.cobblepastureoptimizer;
 
+import com.andrewbristowx.cobblepastureoptimizer.config.OptimizerConfig;
+import com.andrewbristowx.cobblepastureoptimizer.service.PastureDisplayService;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,6 +13,8 @@ public final class CobblePastureOptimizer implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("CobblePasture Optimizer 0.1.0-alpha.1 enabled: pasture Pokemon will be virtualized server-side.");
+        OptimizerConfig.load();
+        ServerTickEvents.END_SERVER_TICK.register(PastureDisplayService::serverTick);
+        LOGGER.info("CobblePasture Optimizer 0.1.0-alpha.3 enabled: virtual pasture loot and lightweight floating displays active.");
     }
 }
