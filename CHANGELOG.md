@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0-alpha.5
+
+- Fixes the fixed Pasture TextDisplay being rotated 180 degrees away from the readable side.
+- Keeps the display fixed in world space, transparent, and without text shadow.
+- Existing alpha.4 displays are corrected automatically on their next scheduled refresh; Pastures do not need to be replaced.
+
 ## 0.1.0-alpha.4
 
 - Changes the floating Pasture display to a fixed world-space sign by default instead of rotating to follow the player's camera.

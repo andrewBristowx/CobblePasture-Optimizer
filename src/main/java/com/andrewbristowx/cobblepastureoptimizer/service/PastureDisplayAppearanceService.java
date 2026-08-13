@@ -14,11 +14,7 @@ import net.minecraft.world.phys.AABB;
 import java.util.List;
 
 /**
- * Enforces the lightweight Pasture display appearance after the alpha.3 renderer updates its text.
- *
- * Keeping this separate from the content renderer makes alpha.4 a small, low-risk visual change:
- * the existing Pokemon grouping/breeding/hopper logic remains untouched while the display becomes
- * fixed in the world and transparent by default.
+ * Enforces the lightweight Pasture display appearance after the content renderer updates its text.
  */
 public final class PastureDisplayAppearanceService {
     private static final String DISPLAY_TAG = "cpo_pasture_display";
@@ -68,7 +64,6 @@ public final class PastureDisplayAppearanceService {
                 nbtChanged = true;
             }
 
-            // Never allow the vanilla default background to reappear when the custom background is disabled.
             if (tag.getBoolean("default_background")) {
                 tag.putBoolean("default_background", false);
                 nbtChanged = true;
@@ -79,12 +74,12 @@ public final class PastureDisplayAppearanceService {
             }
 
             if (!config.facePlayer) {
-                orientLikePasture(world, pasturePos, display);
+                orientTowardPastureFront(world, pasturePos, display);
             }
         }
     }
 
-    private static void orientLikePasture(
+    private static void orientTowardPastureFront(
             ServerLevel world,
             BlockPos pasturePos,
             Display.TextDisplay display
@@ -95,7 +90,11 @@ public final class PastureDisplayAppearanceService {
         }
 
         Direction facing = state.getValue(HorizontalDirectionalBlock.FACING);
-        float targetYaw = facing.toYRot();
+
+        // TextDisplay's visible face is opposite the entity's forward yaw. Alpha.4 used
+        // facing.toYRot() directly, which made the text face into the Pasture and appear invisible
+        // from the machine's front. Rotate it 180 degrees so the readable side faces outward.
+        float targetYaw = Mth.wrapDegrees(facing.toYRot() + 180.0F);
 
         if (Math.abs(Mth.wrapDegrees(display.getYRot() - targetYaw)) > 0.1F) {
             display.setYRot(targetYaw);

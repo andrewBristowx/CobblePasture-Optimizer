@@ -15,6 +15,6 @@ public final class CobblePastureOptimizer implements ModInitializer {
     public void onInitialize() {
         OptimizerConfig.load();
         ServerTickEvents.END_SERVER_TICK.register(PastureDisplayService::serverTick);
-        LOGGER.info("CobblePasture Optimizer 0.1.0-alpha.4 enabled: fixed transparent Pasture displays active.");
+        LOGGER.info("CobblePasture Optimizer 0.1.0-alpha.5 enabled: fixed transparent Pasture displays with corrected facing active.");
     }
 }
