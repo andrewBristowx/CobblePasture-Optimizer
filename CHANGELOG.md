@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-alpha.4
+
+- Changes the floating Pasture display to a fixed world-space sign by default instead of rotating to follow the player's camera.
+- Aligns the fixed display with the Pasture block's horizontal facing direction.
+- Removes the dark background behind the text by default.
+- Removes the TextDisplay shadow by default.
+- Adds `facePlayer`, `showBackground`, and `textShadow` options to `config/cobblepastureoptimizer.json` so those effects can be re-enabled later if desired.
+- Leaves the alpha.3 Pokemon grouping, hopper status, Cobbreeding status and cleanup behavior unchanged.
+
 ## 0.1.0-alpha.3
 
 - Adds one lightweight vanilla `TextDisplay` hologram per non-empty Pasture instead of bringing physical Pokemon entities back.
