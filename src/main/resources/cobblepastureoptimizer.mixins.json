@@ -4,7 +4,8 @@
   "package": "com.andrewbristowx.cobblepastureoptimizer.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "PokemonPastureBlockEntityMixin"
+    "PokemonPastureBlockEntityMixin",
+    "PokemonPastureDisplayMixin"
   ],
   "injectors": {
     "defaultRequire": 1
