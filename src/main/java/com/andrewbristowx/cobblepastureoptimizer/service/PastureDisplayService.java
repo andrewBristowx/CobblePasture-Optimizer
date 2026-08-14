@@ -409,6 +409,10 @@ public final class PastureDisplayService {
 
     /**
      * Optional reflection bridge so Cobbreeding remains an optional dependency.
+     *
+     * Cobbreeding's PokemonPastureBlockEntityMixin must never be loaded directly: Mixin rejects
+     * direct class loads for mixin implementation classes. We only reflect normal Cobbreeding
+     * classes and read the injected block-state property from the already-transformed Pasture.
      */
     private static final class CobbreedingBridge {
         private static boolean initialized;
@@ -417,7 +421,6 @@ public final class PastureDisplayService {
 
         private static Class<?> pastureInventoryClass;
         private static Method getItemsMethod;
-        private static Field breedingActivatedPropertyField;
         private static Field registryField;
         private static Method getTimeMethod;
         private static Method getRequiredTicksMethod;
@@ -449,9 +452,9 @@ public final class PastureDisplayService {
                 }
 
                 Boolean enabled = null;
-                Object propertyObject = breedingActivatedPropertyField.get(null);
-                if (propertyObject instanceof Property<?> property) {
-                    enabled = readBooleanProperty(pasture, property);
+                Property<?> breedingProperty = findBreedingActivatedProperty(pasture);
+                if (breedingProperty != null) {
+                    enabled = readBooleanProperty(pasture, breedingProperty);
                 }
 
                 Long time = null;
@@ -470,6 +473,18 @@ public final class PastureDisplayService {
                 logFailureOnce("Could not read Cobbreeding pasture status; hiding breeding fields.", throwable);
                 return CobbreedingStatus.unavailable();
             }
+        }
+
+        private static Property<?> findBreedingActivatedProperty(PokemonPastureBlockEntity pasture) {
+            for (Property<?> property : pasture.getBlockState().getProperties()) {
+                String name = property.getName();
+                if ("breeding_activated".equals(name)
+                        || "breedingactivated".equals(name)
+                        || (name.contains("breeding") && name.contains("activ"))) {
+                    return property;
+                }
+            }
+            return null;
         }
 
         @SuppressWarnings({"rawtypes", "unchecked"})
@@ -500,14 +515,6 @@ public final class PastureDisplayService {
                 registryField = dataClass.getField("registry");
                 getTimeMethod = dataClass.getMethod("getTime");
                 getRequiredTicksMethod = dataClass.getMethod("getRequiredTicks");
-
-                Class<?> pastureMixinClass = Class.forName(
-                        "ludichat.cobbreeding.mixin.PokemonPastureBlockEntityMixin"
-                );
-                breedingActivatedPropertyField = pastureMixinClass.getDeclaredField(
-                        "cobbreeding$BREEDING_ACTIVATED"
-                );
-                breedingActivatedPropertyField.setAccessible(true);
 
                 available = true;
             } catch (Throwable throwable) {
