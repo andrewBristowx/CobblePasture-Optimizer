@@ -14,7 +14,8 @@ public final class CobblePastureOptimizer implements ModInitializer {
     @Override
     public void onInitialize() {
         OptimizerConfig.load();
+        // Este evento se ejecuta tanto en servidor dedicado como en el servidor integrado de singleplayer/LAN.
         ServerTickEvents.END_SERVER_TICK.register(PastureDisplayService::serverTick);
-        LOGGER.info("CobblePasture Optimizer 0.1.0-alpha.5 enabled: fixed transparent Pasture displays with corrected facing active.");
+        LOGGER.info("CobblePasture Optimizer 0.1.0-alpha.7 activo: servidor dedicado, LAN y singleplayer integrado compatibles.");
     }
 }
