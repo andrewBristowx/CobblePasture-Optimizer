@@ -3,12 +3,12 @@
   "id": "cobblepastureoptimizer",
   "version": "${version}",
   "name": "CobblePasture Optimizer",
-  "description": "Server-side optimization addon that virtualizes Cobblemon pasture Pokemon while preserving Cobblemon Pasture Loot drops.",
+  "description": "Optimiza los Pasture de Cobblemon virtualizando Pokémon físicos y conservando los drops de Pasture Loot; compatible con servidor dedicado, LAN y servidor integrado de singleplayer.",
   "authors": [
     "andrewBristowx"
   ],
   "license": "ARR",
-  "environment": "server",
+  "environment": "*",
   "entrypoints": {
     "main": [
       "com.andrewbristowx.cobblepastureoptimizer.CobblePastureOptimizer"
